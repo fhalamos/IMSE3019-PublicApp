@@ -8,7 +8,7 @@
 
         2. The reference imseWSC1K should be added.
 
-        3. The current application enables a Shop Store to administrate the parking card.
+        3. The current application enables a Public Center to administrate the parking card.
 
         4. The 1st block of Sector 14 is used to save the card id. THe 2nd block of Sector 14 is used to save the car patent.
            The 3rd block of Sector 14 is used to save the entrance time. 
@@ -57,7 +57,7 @@ namespace imseWCard2
         private int entranceTimeBlock = 0x3A;
 
         //Parking fees
-        private int PricePerHour = 30;
+        private int pricePerHour = 30;
 
         //Free hour policy. 400 Dollars = 5 free hours (Combo1). 200 Dollares = 2 free hours (Combo2). No accumulative. Money in cents
         private int combo1freeHours = 5;
@@ -129,20 +129,100 @@ namespace imseWCard2
                     announceConnection();
                 }
 
-                if (authenticateSector(informationSector))
-                  displayCardInformation();
-
                 // Authenticate before reading or writing to a sector
                 if (authenticateSector(amountsSector))
                 {
-                    // Disable "Charge" button if Amount quantity is 0.
-                    disableOrEnableChargeButton();
-
+                    
                     long amount = displayAmountOfParkingCredit();
 
                     //Display amout of free parking hours available
                     quantityFreeHourslabel.Text = calculateFreeParkingHours(amount);
                 }
+
+                if (authenticateSector(informationSector))
+                {
+                    displayCardInformation();
+                    displayEntranceAndActualTime();
+
+                    calculatAndDisplayParkingDebt(Int32.Parse(quantityFreeHourslabel.Text));
+                }
+
+
+
+            }
+        }
+
+        private void calculatAndDisplayParkingDebt(int freeHours)
+        {
+            //Get actual time
+            System.DateTime actualTime = System.DateTime.Now;
+            
+            //Get entrance time
+            System.DateTime entranceTime = getEntranceTime();
+            
+            //Calculate debt
+            double hoursDifference = Math.Ceiling(actualTime.Subtract(entranceTime).TotalHours);
+            double hoursToPay = hoursDifference - freeHours;
+
+            if (hoursToPay < 0)
+                hoursToPay = 0;
+
+            double debtToPay = hoursToPay * pricePerHour;
+
+            string hourOrHours = "hour";
+            if (hoursToPay != 1)
+                hourOrHours = "hours";
+
+            actualParkingDebtLabel.Text = "$"+debtToPay + " ("+hoursToPay+" "+hourOrHours+")";
+        }
+
+        private DateTime getEntranceTime()
+        {
+
+            string entranceTime_ = "";
+            if (CADw.read(entranceTimeBlock, ref entranceTime_) == false)
+            {
+                textBoxMsg.Text = "Read value error!";
+                //return;
+
+            }
+            if (entranceTime_ != "") //sometimes the reader wont read, cause we just took out the card
+            {
+                string[] entranceTimeSplited = entranceTime_.Split('_');
+                string[] dateEntranceTime = entranceTimeSplited[0].Split('-');
+                string[] timeEntranceTime = entranceTimeSplited[1].Split(':');
+
+                int day = Int32.Parse(dateEntranceTime[0]);
+                int month = Int32.Parse(dateEntranceTime[1]);
+                int year = Int32.Parse(dateEntranceTime[2]);
+
+                int hour = Int32.Parse(timeEntranceTime[0]);
+                int minute = Int32.Parse(timeEntranceTime[1]);
+                int seconds = 0;
+
+                return new DateTime(year, month, day, hour, minute, seconds);
+            }
+            else
+                return DateTime.Now; //we dont care what we return, cause the information will be erased (the card is out)
+                
+        }
+
+        private void displayEntranceAndActualTime()
+        {
+            string entranceTime = "";
+            if (CADw.read(entranceTimeBlock, ref entranceTime) == false)
+            {
+                textBoxMsg.Text = "Read value error!";
+                return;
+            }
+
+            if (entranceTime != "") //sometimes the reader wont read, cause we just took out the card
+            { 
+                string[] time = entranceTime.Split('_');
+                entranceTimeLabel.Text = time[0] + " " + time[1];
+            
+                System.DateTime actualTime = System.DateTime.Now;
+                actualTimeLabel.Text = actualTime.ToString();
             }
         }
 
@@ -223,23 +303,14 @@ namespace imseWCard2
                 quantityFreeHourslabel.Text = "";
                 cardIdLabel.Text = "";
                 carPatentLabel.Text = "";
+                entranceTimeLabel.Text = "";
+                actualTimeLabel.Text = "";
+                actualParkingDebtLabel.Text = "";
             }
-            btnConfigGo.Enabled = false;
             connected = false;
             return;
         }
 
-        private void disableOrEnableChargeButton()
-        {
-            if (textBoxConfigAmt.Text.Equals("0") || textBoxConfigAmt.Text.Equals(""))
-            {
-                btnConfigGo.Enabled = false;
-            }
-            else
-            {
-                btnConfigGo.Enabled = true;
-            }
-        }
 
         private void resetMemoryValues()
         {
@@ -264,7 +335,7 @@ namespace imseWCard2
 
             else
             {
-                return "None";
+                return "0";
             }
         }
 
@@ -296,56 +367,7 @@ namespace imseWCard2
             return str;
         }
 
-        private void btnConfigGo_Click(object sender, EventArgs e)
-        {
-            /* Initialize a card's value
-             * */
-            long Amount;
-            int tempInt;
-
-            // Check whether the value in the text box is valid.
-            if (!int.TryParse(textBoxConfigAmt.Text, out tempInt))
-            {
-                textBoxConfigAmt.Focus();
-                textBoxConfigAmt.Text = "0";
-                return;
-            }
-            // convert to cents and store into card
-            Amount = 100*Convert.ToInt32(textBoxConfigAmt.Text);
-            
-            //@fhalamos
-            //We will save amount only if it is bigger than any of the other 3 amounts.
-            long amount0 = 0;
-            CADw.readValueBlock(amount0Block, ref amount0);
-            long amount1 = 0;
-            CADw.readValueBlock(amount1Block, ref amount1);
-            long amount2 = 0;
-            CADw.readValueBlock(amount2Block, ref amount2);
-            
-            //We need to know which is the smallest amount actually saved
-            long min0 = Math.Min(amount0, amount1);
-            long min = Math.Min(min0, amount2);
-
-            if (Amount > min)
-            {
-                if (min == amount0)
-                    CADw.updateValueBlock(amount0Block, Amount);
-                else if (min == amount1)
-                    CADw.updateValueBlock(amount1Block, Amount);
-                else if (min == amount2)
-                    CADw.updateValueBlock(amount2Block, Amount);
-                
-
-                System.Windows.Forms.MessageBox.Show(toDollar(Amount) + " dollars added to your parking credit!");
-            }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show("Ups! Your purchase is too small to be saved, it is smaller than any of your 3 biggest purchases");
-            }
-
-            textBoxConfigAmt.Text = "0";
-        }
-
+        
 
 
 
