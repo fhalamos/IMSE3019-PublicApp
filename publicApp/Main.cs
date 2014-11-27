@@ -1,5 +1,5 @@
 ﻿/*=======================================================================================================================
-    Parking System Project - IMSE3019 - Shop Application
+    Parking System Project - IMSE3019 - Public Application
 
     Created by  : Felipe Alamos
     Date        : 2nd December 2014
@@ -77,10 +77,13 @@ namespace imseWCard2
                 textBoxMsg.Text = "Reader initialization failed!";
                 return;
             }
-            textBoxMsg.Text = "Reader initialization successful.";
+            textBoxMsg.Text = "Place your card in reader to read card";
             timer1.Enabled = true;
             timer2.Enabled = false;
             timer3.Enabled = false;
+
+
+            unDisplayInformation();
         }
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -290,7 +293,7 @@ namespace imseWCard2
         private void announceConnection()
         {
             connected = true;
-            textBoxMsg.Text = "Connected.";
+            textBoxMsg.Text = "Good, have a look at your information";
         }
 
         private void announceDisconection()
@@ -298,17 +301,36 @@ namespace imseWCard2
             // Connection lost.
             if (connected)
             {
-                textBoxMsg.Text = "Lost connection!";
-                labelAmt.Text = "";
-                quantityFreeHourslabel.Text = "";
-                cardIdLabel.Text = "";
-                carPatentLabel.Text = "";
-                entranceTimeLabel.Text = "";
-                actualTimeLabel.Text = "";
-                actualParkingDebtLabel.Text = "";
+                textBoxMsg.Text = "Place your card in reader to read card";
+
+                unDisplayInformation();
+                
             }
             connected = false;
             return;
+        }
+
+        private void unDisplayInformation()
+        {
+            cardInformationStaticLabel.Visible = false;
+            cardIdStaticLabel.Visible = false;
+            carPatentStaticLabel.Visible = false;
+            entranceTimeStaticLabel.Visible = false;
+            freeHoursStaticLabel.Visible = false;
+            parkingCreditStaticLabel.Visible = false;
+            actualTimeStaticLabel.Visible = false;
+            actualParkingDebtStaticLabel.Visible = false;
+
+
+
+
+            labelAmt.Text = "";
+            quantityFreeHourslabel.Text = "";
+            cardIdLabel.Text = "";
+            carPatentLabel.Text = "";
+            entranceTimeLabel.Text = "";
+            actualTimeLabel.Text = "";
+            actualParkingDebtLabel.Text = "";
         }
 
 
@@ -675,7 +697,7 @@ namespace imseWCard2
                 {
                     connected = true;
                     textBoxDBalance.Text = "";
-                    textBoxMsg.Text = "Connected.";
+                    textBoxMsg.Text = "Here is your information";
                 } 
                 
                 // Authenticate before reading or writing

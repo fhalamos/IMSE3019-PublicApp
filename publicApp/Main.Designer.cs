@@ -38,15 +38,15 @@
             this.entranceTimeLabel = new System.Windows.Forms.Label();
             this.entranceTimeStaticLabel = new System.Windows.Forms.Label();
             this.carPatentLabel = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.carPatentStaticLabel = new System.Windows.Forms.Label();
             this.labelAmt = new System.Windows.Forms.Label();
             this.quantityFreeHourslabel = new System.Windows.Forms.Label();
-            this.freeHourslabel = new System.Windows.Forms.Label();
+            this.freeHoursStaticLabel = new System.Windows.Forms.Label();
             this.cardIdLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.cardInformationStaticLabel = new System.Windows.Forms.Label();
+            this.cardIdStaticLabel = new System.Windows.Forms.Label();
             this.textBoxMsg = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.parkingCreditStaticLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Credit = new System.Windows.Forms.TabPage();
             this.btnCredit = new System.Windows.Forms.Button();
@@ -113,15 +113,15 @@
             this.Configure.Controls.Add(this.entranceTimeLabel);
             this.Configure.Controls.Add(this.entranceTimeStaticLabel);
             this.Configure.Controls.Add(this.carPatentLabel);
-            this.Configure.Controls.Add(this.label10);
+            this.Configure.Controls.Add(this.carPatentStaticLabel);
             this.Configure.Controls.Add(this.labelAmt);
             this.Configure.Controls.Add(this.quantityFreeHourslabel);
-            this.Configure.Controls.Add(this.freeHourslabel);
+            this.Configure.Controls.Add(this.freeHoursStaticLabel);
             this.Configure.Controls.Add(this.cardIdLabel);
-            this.Configure.Controls.Add(this.label8);
-            this.Configure.Controls.Add(this.label3);
+            this.Configure.Controls.Add(this.cardInformationStaticLabel);
+            this.Configure.Controls.Add(this.cardIdStaticLabel);
             this.Configure.Controls.Add(this.textBoxMsg);
-            this.Configure.Controls.Add(this.label2);
+            this.Configure.Controls.Add(this.parkingCreditStaticLabel);
             this.Configure.Controls.Add(this.label1);
             this.Configure.Location = new System.Drawing.Point(4, 31);
             this.Configure.Name = "Configure";
@@ -199,14 +199,14 @@
             this.carPatentLabel.TabIndex = 17;
             this.carPatentLabel.Text = "             ";
             // 
-            // label10
+            // carPatentStaticLabel
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 152);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(131, 22);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Car Patent:";
+            this.carPatentStaticLabel.AutoSize = true;
+            this.carPatentStaticLabel.Location = new System.Drawing.Point(12, 152);
+            this.carPatentStaticLabel.Name = "carPatentStaticLabel";
+            this.carPatentStaticLabel.Size = new System.Drawing.Size(131, 22);
+            this.carPatentStaticLabel.TabIndex = 16;
+            this.carPatentStaticLabel.Text = "Car Patent:";
             // 
             // labelAmt
             // 
@@ -226,14 +226,14 @@
             this.quantityFreeHourslabel.TabIndex = 14;
             this.quantityFreeHourslabel.Text = "        ";
             // 
-            // freeHourslabel
+            // freeHoursStaticLabel
             // 
-            this.freeHourslabel.AutoSize = true;
-            this.freeHourslabel.Location = new System.Drawing.Point(12, 224);
-            this.freeHourslabel.Name = "freeHourslabel";
-            this.freeHourslabel.Size = new System.Drawing.Size(219, 22);
-            this.freeHourslabel.TabIndex = 13;
-            this.freeHourslabel.Text = "Free Parking Hours:";
+            this.freeHoursStaticLabel.AutoSize = true;
+            this.freeHoursStaticLabel.Location = new System.Drawing.Point(12, 224);
+            this.freeHoursStaticLabel.Name = "freeHoursStaticLabel";
+            this.freeHoursStaticLabel.Size = new System.Drawing.Size(219, 22);
+            this.freeHoursStaticLabel.TabIndex = 13;
+            this.freeHoursStaticLabel.Text = "Free Parking Hours:";
             // 
             // cardIdLabel
             // 
@@ -244,25 +244,25 @@
             this.cardIdLabel.TabIndex = 10;
             this.cardIdLabel.Text = "             ";
             // 
-            // label8
+            // cardInformationStaticLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(13, 86);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(218, 23);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Card Information";
+            this.cardInformationStaticLabel.AutoSize = true;
+            this.cardInformationStaticLabel.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cardInformationStaticLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.cardInformationStaticLabel.Location = new System.Drawing.Point(13, 86);
+            this.cardInformationStaticLabel.Name = "cardInformationStaticLabel";
+            this.cardInformationStaticLabel.Size = new System.Drawing.Size(218, 23);
+            this.cardInformationStaticLabel.TabIndex = 9;
+            this.cardInformationStaticLabel.Text = "Card Information";
             // 
-            // label3
+            // cardIdStaticLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 120);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 22);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "CardID:";
+            this.cardIdStaticLabel.AutoSize = true;
+            this.cardIdStaticLabel.Location = new System.Drawing.Point(11, 120);
+            this.cardIdStaticLabel.Name = "cardIdStaticLabel";
+            this.cardIdStaticLabel.Size = new System.Drawing.Size(87, 22);
+            this.cardIdStaticLabel.TabIndex = 8;
+            this.cardIdStaticLabel.Text = "CardID:";
             // 
             // textBoxMsg
             // 
@@ -272,14 +272,14 @@
             this.textBoxMsg.Size = new System.Drawing.Size(324, 31);
             this.textBoxMsg.TabIndex = 1;
             // 
-            // label2
+            // parkingCreditStaticLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 194);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(175, 22);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Parking Credit:";
+            this.parkingCreditStaticLabel.AutoSize = true;
+            this.parkingCreditStaticLabel.Location = new System.Drawing.Point(12, 194);
+            this.parkingCreditStaticLabel.Name = "parkingCreditStaticLabel";
+            this.parkingCreditStaticLabel.Size = new System.Drawing.Size(175, 22);
+            this.parkingCreditStaticLabel.TabIndex = 1;
+            this.parkingCreditStaticLabel.Text = "Parking Credit:";
             // 
             // label1
             // 
@@ -288,9 +288,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label1.Location = new System.Drawing.Point(12, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(179, 23);
+            this.label1.Size = new System.Drawing.Size(101, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Reader Status";
+            this.label1.Text = "Message";
             // 
             // Credit
             // 
@@ -682,6 +682,7 @@
             this.ClientSize = new System.Drawing.Size(398, 574);
             this.Controls.Add(this.tabControl);
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Parking System - Public App";
             this.Load += new System.EventHandler(this.Main_Load);
             this.tabControl.ResumeLayout(false);
@@ -738,16 +739,16 @@
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Button btnCredit;
         private System.Windows.Forms.Label cardIdLabel;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label cardInformationStaticLabel;
+        private System.Windows.Forms.Label cardIdStaticLabel;
         private System.Windows.Forms.Label quantityFreeHourslabel;
         private System.Windows.Forms.Label labelAmt;
         private System.Windows.Forms.Label carPatentLabel;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label carPatentStaticLabel;
         private System.Windows.Forms.Label entranceTimeLabel;
         private System.Windows.Forms.Label entranceTimeStaticLabel;
-        private System.Windows.Forms.Label freeHourslabel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label freeHoursStaticLabel;
+        private System.Windows.Forms.Label parkingCreditStaticLabel;
         private System.Windows.Forms.Label actualTimeLabel;
         private System.Windows.Forms.Label actualTimeStaticLabel;
         private System.Windows.Forms.Label actualParkingDebtLabel;
