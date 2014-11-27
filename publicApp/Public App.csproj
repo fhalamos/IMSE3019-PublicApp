@@ -8,8 +8,8 @@
     <ProjectGuid>{43D60DCC-ED98-4901-AEF4-5C92765F93D1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>imseWCard2</RootNamespace>
-    <AssemblyName>imseWCard2</AssemblyName>
+    <RootNamespace>PublicApp</RootNamespace>
+    <AssemblyName>PublicApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
