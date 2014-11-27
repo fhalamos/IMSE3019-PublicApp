@@ -82,42 +82,9 @@ namespace imseWCard2
             timer2.Enabled = false;
             timer3.Enabled = false;
 
-
             unDisplayInformation();
         }
 
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /* initialize timers and other values when the user switch
-             * between the three main functions: configure, credit and debit.
-             * Timer1, timer2 and timer3 are used for configure, credit and debit
-             * respectively.
-             * */
-
-            switch (tabControl.SelectedIndex)
-            {
-                case 0:
-                    timer1.Enabled = true;
-                    timer2.Enabled = false;
-                    timer3.Enabled = false;
-                    transectionDone = false;
-                    labelAmt.Text = "";
-                    break;
-                case 1:
-                    timer1.Enabled = false;
-                    timer2.Enabled = true;
-                    timer3.Enabled = false;
-                    transectionDone = false;
-                    radioButtonCreditChange.Checked = true;
-                    break;
-                case 2:
-                    timer1.Enabled = false;
-                    timer2.Enabled = false;
-                    timer3.Enabled = true;
-                    radioButtonDebitChange.Checked = true;
-                    break;
-            }
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -131,6 +98,9 @@ namespace imseWCard2
                 {
                     announceConnection();
                 }
+
+                displayStaticLabels();
+
 
                 // Authenticate before reading or writing to a sector
                 if (authenticateSector(amountsSector))
@@ -149,10 +119,19 @@ namespace imseWCard2
 
                     calculatAndDisplayParkingDebt(Int32.Parse(quantityFreeHourslabel.Text));
                 }
-
-
-
             }
+        }
+
+        private void displayStaticLabels()
+        {
+            cardInformationStaticLabel.Visible = true;
+            cardIdStaticLabel.Visible = true;
+            carPatentStaticLabel.Visible = true;
+            entranceTimeStaticLabel.Visible = true;
+            freeHoursStaticLabel.Visible = true;
+            parkingCreditStaticLabel.Visible = true;
+            actualTimeStaticLabel.Visible = true;
+            actualParkingDebtStaticLabel.Visible = true;
         }
 
         private void calculatAndDisplayParkingDebt(int freeHours)
@@ -302,10 +281,9 @@ namespace imseWCard2
             if (connected)
             {
                 textBoxMsg.Text = "Place your card in reader to read card";
-
-                unDisplayInformation();
-                
             }
+
+            unDisplayInformation();
             connected = false;
             return;
         }
@@ -322,8 +300,6 @@ namespace imseWCard2
             actualParkingDebtStaticLabel.Visible = false;
 
 
-
-
             labelAmt.Text = "";
             quantityFreeHourslabel.Text = "";
             cardIdLabel.Text = "";
@@ -332,7 +308,6 @@ namespace imseWCard2
             actualTimeLabel.Text = "";
             actualParkingDebtLabel.Text = "";
         }
-
 
         private void resetMemoryValues()
         {
@@ -391,392 +366,5 @@ namespace imseWCard2
 
         
 
-
-
-        //****************OUT OF USE ****************************
-        private void btn100_Click(object sender, EventArgs e)
-        {
-            textBoxCAmt.Text = "100";
-        }
-
-        private void btn200_Click(object sender, EventArgs e)
-        {
-            textBoxCAmt.Text = "200";
-        }
-
-        private void btn500_Click(object sender, EventArgs e)
-        {
-            textBoxCAmt.Text = "500";
-        }
-
-        private void btn800_Click(object sender, EventArgs e)
-        {
-            textBoxCAmt.Text = "800";
-        }
-
-        private void btn1000_Click(object sender, EventArgs e)
-        {
-            textBoxCAmt.Text = "1000";
-        }
-
-        private void btn2000_Click(object sender, EventArgs e)
-        {
-            textBoxCAmt.Text = "2000";
-        }
-
-        private void addDigit(string d)
-        { // Append a digit to the text box textBoxDAmt
-            // The value should contains not more than 2 decimal points.
-            string s = textBoxDAmt.Text;
-            if (s.Contains("."))
-            {
-                if (s.IndexOf(".") + 2 < s.Length)
-                    return;
-            }
-            if (s.Length == 1 && s[0] == '0')
-                textBoxDAmt.Text = d;
-            else
-                textBoxDAmt.Text = s + d;
-        }
-
-        private void btn1_Click(object sender, EventArgs e)
-        {
-            addDigit("1");
-        }
-
-        private void btn2_Click(object sender, EventArgs e)
-        {
-            addDigit("2");
-        }
-
-        private void btn3_Click(object sender, EventArgs e)
-        {
-            addDigit("3");
-        }
-
-        private void btn4_Click(object sender, EventArgs e)
-        {
-            addDigit("4");
-        }
-
-        private void btn5_Click(object sender, EventArgs e)
-        {
-            addDigit("5");
-        }
-
-        private void btn6_Click(object sender, EventArgs e)
-        {
-            addDigit("6");
-        }
-
-        private void btn7_Click(object sender, EventArgs e)
-        {
-            addDigit("7");
-        }
-
-        private void btn8_Click(object sender, EventArgs e)
-        {
-            addDigit("8");
-        }
-
-        private void btn9_Click(object sender, EventArgs e)
-        {
-            addDigit("9");
-        }
-
-        private void btn0_Click(object sender, EventArgs e)
-        {
-            addDigit("0");
-        }
-
-        private void btnCLR_Click(object sender, EventArgs e)
-        {
-            textBoxDAmt.Text = "0";
-        }
-
-        private void btnDOT_Click(object sender, EventArgs e)
-        {
-            string s = textBoxDAmt.Text;
-            if (s.Contains(".") == false)
-                textBoxDAmt.Text = s + ".";
-        }
-
-        private void radioButtonDebitReady_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonDebitReady.Checked == false)
-                return;
-
-            /* The value in the text box textBoxDAmt represents the amount to be
-             * debit from the card in dollar. If radio button "ready" is selected
-             * and the value is positive, disable input buttons and then enable 
-             * the timer.
-             * */
-
-            double value = 0.0;
-
-            if (textBoxDAmt.Text.Length > 0)
-                value = Convert.ToDouble(textBoxDAmt.Text);
-
-            if (value <= 0)
-            {
-                radioButtonDebitChange.Select();
-                return;
-            }
-
-            btn1.Enabled = false;
-            btn2.Enabled = false;
-            btn3.Enabled = false;
-            btn4.Enabled = false;
-            btn5.Enabled = false;
-            btn6.Enabled = false;
-            btn7.Enabled = false;
-            btn8.Enabled = false;
-            btn9.Enabled = false;
-            btnDOT.Enabled = false;
-            btn0.Enabled = false;
-            btnCLR.Enabled = false;
-            timer3.Enabled = true;
-        }
-
-        private void radioButtonDebitChange_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonDebitChange.Checked == false)
-                return;
-
-            /* If radio button "change" is selected, enable input buttons.
-             * and disable timer.
-             * */
-
-            btn1.Enabled = true;
-            btn2.Enabled = true;
-            btn3.Enabled = true;
-            btn4.Enabled = true;
-            btn5.Enabled = true;
-            btn6.Enabled = true;
-            btn7.Enabled = true;
-            btn8.Enabled = true;
-            btn9.Enabled = true;
-            btnDOT.Enabled = true;
-            btn0.Enabled = true;
-            btnCLR.Enabled = true;
-            textBoxDAmt.Text = "0";
-            timer3.Enabled = false;
-        }
-
-        private void radioButtonCreditReady_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonCreditReady.Checked == false)
-                return;
-
-            /* The value in the text box textBoxCAmt represents the amount to be
-             * credit to the card in dollar. If radio button "ready" is selected 
-             * and the value is positive, disable input buttons.
-             * */
-            double value = 0.0;
-
-            if (textBoxCAmt.Text.Length > 0)
-                value = Convert.ToDouble(textBoxCAmt.Text);
-
-            if (value <= 0)
-            {
-                radioButtonCreditChange.Select();
-                return;
-            }
-
-            btn100.Enabled = false;
-            btn200.Enabled = false;
-            btn500.Enabled = false;
-            btn800.Enabled = false;
-            btn1000.Enabled = false;
-            btn2000.Enabled = false;
-            btnCredit.Enabled = true;
-        }
-
-        private void radioButtonCreditChange_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonCreditChange.Checked == false)
-                return;
-            /* If radio button "change" is selected, enable input buttons.
-             * */
-            btn100.Enabled = true;
-            btn200.Enabled = true;
-            btn500.Enabled = true;
-            btn800.Enabled = true;
-            btn1000.Enabled = true;
-            btn2000.Enabled = true;
-            textBoxCAmt.Text = "0";
-            btnCredit.Enabled = false;
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            if (!CADw.connect())
-            {
-                // Connection lost.
-                if (connected)
-                {
-                    textBoxMsg.Text = "Lose connection!";
-                    textBoxCBalance.Text = "";
-                    radioButtonCreditChange.Select();
-                }
-                connected = false;
-                return;
-            }
-            else
-            {
-                // Connected
-                if (!connected)
-                {
-                    connected = true;
-                    textBoxMsg.Text = "Connected.";
-                } 
-
-                // Authenticate before reading or writing
-                if (CADw.authenticate(amountsSector) == false)
-                {
-                    textBoxMsg.Text = "Authentication error!";
-                    return;
-                }
-
-                //Read value from the card
-                long amount = 0;
-                if (CADw.readValueBlock(amount2Block, ref amount) == false)
-                {
-                    textBoxMsg.Text = "Read value error!";
-                    return;
-                }
-
-                // Display the value
-                textBoxCBalance.Text = toDollar(amount);
-
-
-            }
-        }
-
-        private void btnCredit_Click(object sender, EventArgs e)
-        {
-            /* Add value to the card
-             * */
-
-            // Check whether the value in the text box is valid.
-            double value = 0.0;
-            if (textBoxCAmt.Text.Length > 0)
-                value = Convert.ToDouble(textBoxCAmt.Text);
-
-            if (value <= 0)
-            {
-                radioButtonCreditChange.Select();
-                return;
-            }
-            /* The value in the text box is in dollar. Convert to cents and 
-             * add to the card.
-             * */
-            int amount = Convert.ToInt32(100.0 * value);
-            if (CADw.incValueBlock(amount2Block, amount) == false)
-                textBoxMsg.Text = "Value increment error!";
-        }
-
-        private void timer3_Tick(object sender, EventArgs e)
-        {            
-            if (!CADw.connect())
-            {
-                // Connection lost.
-                if (connected)
-                {
-                    textBoxMsg.Text = "Lose connection!";
-                    textBoxDBalance.Text = "";
-                    transectionDone = false;
-                }
-                connected = false;
-                return;
-            }
-            else
-            {
-                // Connected
-                if (!connected)
-                {
-                    connected = true;
-                    textBoxDBalance.Text = "";
-                    textBoxMsg.Text = "Here is your information";
-                } 
-                
-                // Authenticate before reading or writing
-                if (CADw.authenticate(amountsSector) == false)
-                {
-                    textBoxMsg.Text = "Authentication error!";
-                    return;
-                }
-
-                // Read value from the card
-                long amount = 0;
-                if (CADw.readValueBlock(amount2Block, ref amount) == false)
-                {
-                    textBoxMsg.Text = "Read value error!";
-                    return;
-                }
-
-                // If ready to debit and the transaction is not done in previous timer cycle
-                
-                if (radioButtonDebitReady.Checked == true && transectionDone == false)
-                {
-                    // Check whether the value in the text box is valid
-                    double value = 0.0;
-                    if (textBoxDAmt.Text.Length > 0)
-                        value = Convert.ToDouble(textBoxDAmt.Text);
-
-                    if (value <= 0)
-                    {
-                        radioButtonDebitChange.Checked = true;
-                        return;
-                    }
-
-                    long newAmount = Convert.ToInt32(100.0 * value);
-
-                    // Check whether there are enough money in the card
-                    if (newAmount > amount)
-                    {
-                        textBoxMsg.Text = "Balance not enough!";
-                        return;
-                    }
-
-                    // Subtract theamount from the card.
-                    if (CADw.decValueBlock(amount2Block, newAmount) == false)
-                    {
-                        textBoxMsg.Text = "Value decrement error!";
-                        return;
-                    }
-                    transectionDone = true;
-                }
-
-                // Read value from the card
-                if (CADw.readValueBlock(amount2Block, ref amount) == false)
-                {
-                    textBoxMsg.Text = "Read value error!";
-                    return;
-                }
-
-                // Display the value
-                textBoxDBalance.Text = toDollar(amount);
-            }
-
-        }
-
-        private void btnCredit_EnabledChanged(object sender, EventArgs e)
-        {
-            /* Change colour of the credit button.
-             * Pink if ready to credit. Otherwise, blue.
-             * */
-
-            if (btnCredit.Enabled == true)
-            {
-                btnCredit.BackColor = Color.Pink;
-            }
-            else
-            {
-                btnCredit.BackColor = Color.LightBlue;
-            }
-        }
-
-        //****************END OUT OF USE ****************************
     }
 }
