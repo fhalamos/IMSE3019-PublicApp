@@ -37,8 +37,8 @@
             this.actualTimeStaticLabel = new System.Windows.Forms.Label();
             this.entranceTimeLabel = new System.Windows.Forms.Label();
             this.entranceTimeStaticLabel = new System.Windows.Forms.Label();
-            this.carPatentLabel = new System.Windows.Forms.Label();
-            this.carPatentStaticLabel = new System.Windows.Forms.Label();
+            this.carPlateLabel = new System.Windows.Forms.Label();
+            this.carPlateStaticLabel = new System.Windows.Forms.Label();
             this.labelAmt = new System.Windows.Forms.Label();
             this.quantityFreeHourslabel = new System.Windows.Forms.Label();
             this.freeHoursStaticLabel = new System.Windows.Forms.Label();
@@ -64,7 +64,6 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(374, 549);
             this.tabControl.TabIndex = 0;
-
             // 
             // Configure
             // 
@@ -75,8 +74,8 @@
             this.Configure.Controls.Add(this.actualTimeStaticLabel);
             this.Configure.Controls.Add(this.entranceTimeLabel);
             this.Configure.Controls.Add(this.entranceTimeStaticLabel);
-            this.Configure.Controls.Add(this.carPatentLabel);
-            this.Configure.Controls.Add(this.carPatentStaticLabel);
+            this.Configure.Controls.Add(this.carPlateLabel);
+            this.Configure.Controls.Add(this.carPlateStaticLabel);
             this.Configure.Controls.Add(this.labelAmt);
             this.Configure.Controls.Add(this.quantityFreeHourslabel);
             this.Configure.Controls.Add(this.freeHoursStaticLabel);
@@ -153,23 +152,23 @@
             this.entranceTimeStaticLabel.TabIndex = 19;
             this.entranceTimeStaticLabel.Text = "Entrance time";
             // 
-            // carPatentLabel
+            // carPlateLabel
             // 
-            this.carPatentLabel.AutoSize = true;
-            this.carPatentLabel.Location = new System.Drawing.Point(149, 152);
-            this.carPatentLabel.Name = "carPatentLabel";
-            this.carPatentLabel.Size = new System.Drawing.Size(153, 22);
-            this.carPatentLabel.TabIndex = 17;
-            this.carPatentLabel.Text = "             ";
+            this.carPlateLabel.AutoSize = true;
+            this.carPlateLabel.Location = new System.Drawing.Point(207, 152);
+            this.carPlateLabel.Name = "carPlateLabel";
+            this.carPlateLabel.Size = new System.Drawing.Size(153, 22);
+            this.carPlateLabel.TabIndex = 17;
+            this.carPlateLabel.Text = "             ";
             // 
-            // carPatentStaticLabel
+            // carPlateStaticLabel
             // 
-            this.carPatentStaticLabel.AutoSize = true;
-            this.carPatentStaticLabel.Location = new System.Drawing.Point(12, 152);
-            this.carPatentStaticLabel.Name = "carPatentStaticLabel";
-            this.carPatentStaticLabel.Size = new System.Drawing.Size(131, 22);
-            this.carPatentStaticLabel.TabIndex = 16;
-            this.carPatentStaticLabel.Text = "Car Patent:";
+            this.carPlateStaticLabel.AutoSize = true;
+            this.carPlateStaticLabel.Location = new System.Drawing.Point(12, 152);
+            this.carPlateStaticLabel.Name = "carPlateStaticLabel";
+            this.carPlateStaticLabel.Size = new System.Drawing.Size(197, 22);
+            this.carPlateStaticLabel.TabIndex = 16;
+            this.carPlateStaticLabel.Text = "Car Plate Number:";
             // 
             // labelAmt
             // 
@@ -291,8 +290,8 @@
         private System.Windows.Forms.Label cardIdStaticLabel;
         private System.Windows.Forms.Label quantityFreeHourslabel;
         private System.Windows.Forms.Label labelAmt;
-        private System.Windows.Forms.Label carPatentLabel;
-        private System.Windows.Forms.Label carPatentStaticLabel;
+        private System.Windows.Forms.Label carPlateLabel;
+        private System.Windows.Forms.Label carPlateStaticLabel;
         private System.Windows.Forms.Label entranceTimeLabel;
         private System.Windows.Forms.Label entranceTimeStaticLabel;
         private System.Windows.Forms.Label freeHoursStaticLabel;
